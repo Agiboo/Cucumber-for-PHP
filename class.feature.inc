@@ -6,13 +6,13 @@
  **/
 class Feature
 {
-	private $feature_name;						// Feature name (string, first line of file)
+	private $feature_name;										// Feature name (string, first line of file)
 	private $feature_description = array();		// Array with the feature description
-	private $feature_tags = array();			// Tags for the feature
+	private $feature_tags = array();					// Tags for the feature
 	private $scenario_background = array();		// Array with the background actions
-	private $scenarios = array();				// Array with all of the different scenario's
-	private $valid_gherkin;						// Boolean flag
-	private $lines;								// Raw input (for debugging)
+	private $scenarios = array();							// Array with all of the different scenario's
+	private $valid_gherkin;										// Boolean flag
+	private $lines;								            // Raw input (for debugging)
 	
 	/**
 	 * Constructor
