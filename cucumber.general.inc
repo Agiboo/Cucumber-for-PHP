@@ -4,7 +4,7 @@
  * Also, this is a prototype...
  */
 
-$result = When('/^I visit the (.*) page$/');
+//$result = When('/^I visit the (.*) page$/');
 
 function Given($regex)
 {
@@ -26,7 +26,6 @@ function Then($regex)
  */
 function execute_test($regex = NULL, $prefix = NULL)
 {
-	
+	echo "<code><strong>$prefix</strong> $regex</code><br />";
 }
-
 ?>

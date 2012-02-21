@@ -1,5 +1,5 @@
 #comments here
-@users @drupal
+@users @core @sprint0
 Feature: Manage users in Drupal
 	As a website administrator
 	I want to manage users and their permissions
@@ -9,7 +9,8 @@ Feature: Manage users in Drupal
 		Given I'm logged in as an administrator
 		
 	Scenario: Create a user
-		When I fill and submit the user creation form properly
+		When I fill in the user's form
+		And I do something else
 		Then that user account is created
 		And the user can log in
 		

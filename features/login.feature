@@ -1,3 +1,5 @@
+# This is a line of comment and it can be placed anywhere in the file
+@login @authentication @security @sprint0 @core
 Feature: Log in to the system
 	As an authenticated user
 	I want to log in to the system

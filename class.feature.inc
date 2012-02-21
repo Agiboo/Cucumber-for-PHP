@@ -33,8 +33,16 @@ class Feature
 		nifty_print($this->feature_description,'Feature description');
 		nifty_print($this->scenario_background,'Scenario background');
 		nifty_print($this->scenarios,'Scenarios');
-		nifty_print($this->lines);
+		//nifty_print($this->lines);
+		echo "<hr />";
 		return $output;
+	}
+	
+	/**
+	 * Returns the attribute "scenarios"
+	 */
+	public function getScenarios(){
+		return $this->scenarios;
 	}
 	
 	/**
@@ -45,8 +53,12 @@ class Feature
 	private function feature_initiate($lines){
 		$at_background = FALSE;
 		$at_scenario = FALSE;
+		$stepcounter = 0;
+		
+		$latest_scenario = array();
 		
 		foreach($lines as $index => $line){
+			
 			switch ($line) {
 				case string_starts_with($line,'#'):
 					// Ignore here, because it's a comment
@@ -68,15 +80,36 @@ class Feature
 				case string_starts_with($line,'Scenario'):
 					$at_background = FALSE;
 					$at_scenario = TRUE;
-					$this->scenarios[] = $line;
+					
+					if(!empty($latest_scenario)){
+						$this->scenarios[] = $latest_scenario;
+					}
+					$latest_scenario = array();
+					$latest_scenario['name'] = $line;
+					$latest_scenario['steps'] = array();
+					$stepcounter = 0;
 					break;
 				case ($at_background === TRUE && $at_scenario === FALSE):
 					$this->scenario_background[] = $line;
 					break;
 				default:
-					$this->scenarios[] = $line;
+					$newline = $line;
+					if(count($latest_scenario['steps']) > 0 && string_starts_with($line,'And ')) {
+						$previous_sentence = $latest_scenario['steps'][($stepcounter - 1)];
+						//nifty_print($previous_sentence,'previous sentence');
+						// Find if the previous sentence's prefix is Given, When or Then
+						$previous_prefix = array_shift(explode(' ',$previous_sentence));
+						$offset =  strlen($line);
+						$newline = $previous_prefix . ' ' . substr( $line, 4 - $offset,  $offset);
+					}
+					$latest_scenario['steps'][] = $newline;
+					$stepcounter++;
 					break;
 			}
+		}
+		
+		if(!empty($latest_scenario)){
+			$this->scenarios[] = $latest_scenario;
 		}
 	}
 }
