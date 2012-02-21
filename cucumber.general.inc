@@ -24,8 +24,8 @@ function Then($regex)
 /**
  * This is the function that replaces the given/when/then/and functions defined in your Gherkin tests
  */
-function execute_test($regex = NULL, $prefix = NULL)
+function execute_test($pattern = NULL, $prefix = NULL)
 {
-	echo "<code><strong>$prefix</strong> $regex</code><br />";
+	echo "<code><strong>$prefix</strong> $pattern</code><br />";
 }
 ?>
